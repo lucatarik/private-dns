@@ -1,0 +1,16 @@
+{
+  "name": "private-dns",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Private ad/tracker-blocking DNS-over-HTTPS resolver on Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "./setup.sh deploy",
+    "build-lists": "node tools/build-blocklist.mjs build",
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}

@@ -1,0 +1,21 @@
+name = "private-dns"
+main = "src/worker.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "DNS_KV"
+id = "REPLACE_WITH_KV_ID" # setup.sh fills this in
+
+# Aggiorna automaticamente le blocklist ogni 6 ore (richiede piano Workers Paid per la CPU necessaria;
+# sul piano Free usa `./setup.sh lists`, che compila le liste in locale).
+[triggers]
+crons = ["0 */6 * * *"]
+
+[vars]
+# null = 0.0.0.0/:: | nxdomain | refused
+BLOCK_MODE = "null"
+# Upstream DoH, provati in ordine. Per filtrare anche malware lato Cloudflare usa
+# https://security.cloudflare-dns.com/dns-query
+UPSTREAMS = "https://cloudflare-dns.com/dns-query,https://dns.quad9.net/dns-query"
+# BLOCKLISTS = "https://.../list1.txt,https://.../list2.txt"   # sovrascrive le liste di default
